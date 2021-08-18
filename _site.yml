@@ -1,0 +1,38 @@
+name: "GEOG-364"
+output_dir: "."
+navbar:
+  title: "GEOG-364"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Syllabus"
+      href: syllabus.html
+    - text: "Lab Guidelines"
+      href: hw_guidelines.html
+    - text: "Labs"
+      menu:
+        - text: "Lab 1"
+          href: lab1.html    
+        - text: "Lab 2"
+          href: lab2.html  
+        - text: "Lab 3"
+          href: lab3.html        
+    - text: "Other"
+      menu: 
+        - text: "Other1"
+          href: Other1.html   
+        - text: "Other2"
+          href: Other2.html   
+output:
+  html_document:
+    theme: flatly
+    highlight: textmate
+    mathjax: ~
+    toc_depth: 3
+    toc_float:
+      collapsed: yes
+      smooth_scroll: yes
+      number_sections: yes
+    css: styles.css
+    keep_md: true
+    lib_dir: site_libs
