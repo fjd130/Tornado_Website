@@ -6,7 +6,7 @@ output:
     toc: true
     toc_depth: 3
     toc_float: true
-    theme: darkly
+    theme: flatly
 ---
 
 <style>
@@ -44,12 +44,15 @@ h2.title {
 
 #### and some more
 
-**In recent decades**, the impact of *tornadoes* has been mitigated by the development and improvements in a robust severe weather warning system, run federally by the National Weather Service.   The origins of this system span back to March of 1948, where America’s first tornado warning was issued by two Air Force officers in Oklahoma City (Brotzge and Donner, 2013).  The success of this effort led to the formation of the first national severe weather warning program.  A tornado warning, as opposed to a tornado watch, is issued based on the detection of, either through spotting networks or radar indication, an imminent tornado threat.  Figure 3 depicts the sequence of events for both the NWS and expected individual action during which a tornado is warned.
+In recent decades, the impact of tornadoes has been mitigated by the development and improvements in a robust severe weather warning system, run federally by the National Weather Service.   The origins of this system span back to March of 1948, where America’s first tornado warning was issued by two Air Force officers in Oklahoma City (Brotzge and Donner, 2013).  The success of this effort led to the formation of the first national severe weather warning program.  A tornado warning, as opposed to a tornado watch, is issued based on the detection of, either through spotting networks or radar indication, an imminent tornado threat.  Figure 3 depicts the sequence of events for both the NWS and expected individual action during which a tornado is warned.
 
 <br>
 
 
-![Hello](NWS_warning.jpg)
+<div class="figure">
+<img src="NWS_warning.jpg" alt="Hello" width="676" />
+<p class="caption">Hello</p>
+</div>
 
 Figure 3.  Tornado Warning Process (Figure obtained from: Brotzge & Donner 2013)
 Citation: [Bulletin of the American Meteorological Society 94, 11](https://journals.ametsoc.org/view/journals/bams/94/11/bams-d-12-00147.1.xml)
