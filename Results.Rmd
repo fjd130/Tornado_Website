@@ -1,7 +1,6 @@
 ---
-title: "Lab 1: Introduction to R"
+title: "Other page 1"
 subtitle: <h4 style="font-style:normal">GEOG-364 - Spatial Analysis</h4>
-author: <h4 style="font-style:normal">Dr Helen Greatrex</h4>
 date: <h4 style="font-style:normal">Aug 16, 2021</h4>
 output: 
   html_document:
@@ -9,7 +8,6 @@ output:
     toc_depth: 3
     toc_float: true
     theme: flatly
-    code_folding: show
 ---
 
 
@@ -45,9 +43,13 @@ h2.title {
 
 \
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
+```
 
 
-Text goes here
+Your text goes here
+
 
 
 ***

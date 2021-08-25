@@ -1,28 +1,29 @@
-name: "GEOG-364"
+name: "MGIS Capstone"
 output_dir: "."
 navbar:
-  title: "GEOG-364"
+  title: "Capstone Project"
   left:
     - text: "Home"
       href: index.html
-    - text: "Syllabus"
-      href: syllabus.html
-    - text: "Lab Guidelines"
-      href: hw_guidelines.html
-    - text: "Labs"
-      menu:
-        - text: "Lab 1"
-          href: lab1.html    
-        - text: "Lab 2"
-          href: lab2.html  
-        - text: "Lab 3"
-          href: lab3.html        
-    - text: "Other"
+    - text: "Tornado Background"
+      href: tornado_background.html
+    - text: "Human Impact"
+      href: human_impact.html
+    - text: "Warning System"  
+      href: warning_system.html   
+    - text: "Diurnal Tornadoes"
+      href: diurnal_tornadoes.html
+    - text: "Results"
       menu: 
-        - text: "Other1"
-          href: Other1.html   
-        - text: "Other2"
-          href: Other2.html   
+        - text: "Objectives"
+          href: Objectives.html   
+        - text: "Methods"
+          href: Methods.html  
+        - text: "Results" 
+          href: Results.html 
+    - text: "References"
+      href: references.html
+
 output:
   html_document:
     theme: flatly

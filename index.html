@@ -11,9 +11,9 @@
 
 
 
-<title>GEOG-364 - Spatial Analysis</title>
+<title>Nighttime Tornadoes: Why So Dangerous?</title>
 
-<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -239,7 +239,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">GEOG-364</a>
+      <a class="navbar-brand" href="index.html">Capstone Project</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -247,43 +247,37 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="syllabus.html">Syllabus</a>
+  <a href="tornado_background.html">Tornado Background</a>
 </li>
 <li>
-  <a href="hw_guidelines.html">Lab Guidelines</a>
+  <a href="human_impact.html">Human Impact</a>
+</li>
+<li>
+  <a href="warning_system.html">Warning System</a>
+</li>
+<li>
+  <a href="diurnal_tornadoes.html">Diurnal Tornadoes</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Labs
+    Results
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="lab1.html">Lab 1</a>
+      <a href="Objectives.html">Objectives</a>
     </li>
     <li>
-      <a href="lab2.html">Lab 2</a>
+      <a href="Methods.html">Methods</a>
     </li>
     <li>
-      <a href="lab3.html">Lab 3</a>
+      <a href="Results.html">Results</a>
     </li>
   </ul>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Other
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="Other1.html">Other1</a>
-    </li>
-    <li>
-      <a href="Other2.html">Other2</a>
-    </li>
-  </ul>
+<li>
+  <a href="references.html">References</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -297,15 +291,15 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">GEOG-364 - Spatial Analysis</h1>
+<h1 class="title toc-ignore">Nighttime Tornadoes: Why So Dangerous?</h1>
 <h3 class="subtitle"><h4 style="font-style:normal">
-Dr Helen Greatrex
+Frank DiCicco
 </h4></h3>
 <h4 class="author"><h4 style="font-style:normal">
-Penn State, Dept Geography
+Penn State, MGIS
 </h4></h4>
 <h4 class="date"><h4 style="font-style:normal">
-Aug 16, 2021
+Aug 24, 2021
 </h4></h4>
 
 </div>
@@ -345,42 +339,29 @@ h2.title {
 </style>
 <p><br />
 </p>
-<p>Welcome to the GEOG 364 Lab Book! This website complements the class <a href="https://canvas.psu.edu/">Canvas</a> site</p>
-<p>On this website you will find:</p>
+<p>This website is a complimentary data source for my Masters of Geographic Information Systems Capstone Project through Penn State’s World Campus.</p>
+<pre class="r"><code>knitr::include_graphics(&#39;storm_chase.png&#39;)</code></pre>
+<p><img src="storm_chase.png" width="359" /></p>
+<p>On this website you will find information pertaining to diurnal tornado patterns and their human impact:</p>
 <ul>
-<li>The course syllabus</li>
-<li>Lab guidelines</li>
-<li>Lab assignment material</li>
-<li>R help</li>
-<li>Links to datasets</li>
+<li>Background on Tornadoes</li>
+<li>Human Impact of Tornadoes</li>
+<li>Tornado Warning System</li>
+<li>Diurnal Tornadoes</li>
+<li>Objectives</li>
+<li>Methods</li>
+<li>Results</li>
 </ul>
-<p>On Canvas you will find everything else AKA:</p>
-<ul>
-<li>A detailed syllabus</li>
-<li>Lecture materials</li>
-<li>All other assignments</li>
-<li>Where you submit your labs</li>
-<li>Grades</li>
-</ul>
-<p><br />
-</p>
-<div id="about-the-class" class="section level2">
-<h2>About the class</h2>
-<p>This course is</p>
 <p><br></p>
-</div>
 <div id="giving-credit" class="section level2">
 <h2>Giving Credit</h2>
 <p>The following websites were used in the construction of this course website. My gratitude to the people who invested their time and effort in developing and offering these valuable resources to the public.</p>
 <ul>
 <li>Noli Brazil’s wonderful lab website design for his course on <a href="https://crd150.github.io/index.html">Quantitative Methods in Community Research</a></li>
-<li>Manuel Gimond’s <a href="https://mgimond.github.io/Spatial/index.html">Intro to GIS and Spatial Analysis</a></li>
-<li>Claudia Engel’s <a href="https://cengel.github.io/R-spatial/">Using Spatial Data in R</a></li>
-<li>Corey Sparks’ <a href="https://rpubs.com/corey_sparks">RPubs labs</a></li>
 </ul>
 <hr />
 <p><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
-<p>Website created and maintained by <a href="https://www.geog.psu.edu/directory/helen-greatrex">Helen Greatrex</a>. Website template by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
+<p>Website created and maintained by Frank DiCicco. Website template by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
 </div>
 
 

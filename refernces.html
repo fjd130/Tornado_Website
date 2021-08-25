@@ -11,9 +11,9 @@
 
 
 
-<title>Lab 1: Introduction to R</title>
+<title>Assignment Guidelines</title>
 
-<script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
@@ -33,7 +33,6 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
@@ -221,9 +220,6 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
 
 
 
@@ -319,7 +315,7 @@ div.tocify {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">GEOG-364</a>
+      <a class="navbar-brand" href="index.html">Capstone Project</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -327,43 +323,37 @@ div.tocify {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="syllabus.html">Syllabus</a>
+  <a href="tornado_background.html">Tornado Background</a>
 </li>
 <li>
-  <a href="hw_guidelines.html">Lab Guidelines</a>
+  <a href="human_impact.html">Human Impact</a>
+</li>
+<li>
+  <a href="warning_system.html">Warning System</a>
+</li>
+<li>
+  <a href="diurnal_tornadoes.html">Diurnal Tornadoes</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Labs
+    Results
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="lab1.html">Lab 1</a>
+      <a href="Objectives.html">Objectives</a>
     </li>
     <li>
-      <a href="lab2.html">Lab 2</a>
+      <a href="Methods.html">Methods</a>
     </li>
     <li>
-      <a href="lab3.html">Lab 3</a>
+      <a href="Results.html">Results</a>
     </li>
   </ul>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Other
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="Other1.html">Other1</a>
-    </li>
-    <li>
-      <a href="Other2.html">Other2</a>
-    </li>
-  </ul>
+<li>
+  <a href="references.html">References</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -375,23 +365,12 @@ div.tocify {
 
 <div id="header">
 
-<div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
 
 
-
-<h1 class="title toc-ignore">Lab 1: Introduction to R</h1>
+<h1 class="title toc-ignore">Assignment Guidelines</h1>
 <h3 class="subtitle"><h4 style="font-style:normal">
 GEOG-364 - Spatial Analysis
 </h4></h3>
-<h4 class="author"><h4 style="font-style:normal">
-Dr Helen Greatrex
-</h4></h4>
 <h4 class="date"><h4 style="font-style:normal">
 Aug 16, 2021
 </h4></h4>
@@ -400,15 +379,6 @@ Aug 16, 2021
 
 
 <style>
-p.comment {
-background-color: #DBDBDB;
-padding: 10px;
-border: 1px solid black;
-margin-left: 25px;
-border-radius: 5px;
-font-style: normal;
-}
-
 h1.title {
   font-weight: bold;
   font-family: Arial;  
@@ -416,6 +386,11 @@ h1.title {
 
 h2.title {
   font-family: Arial;  
+}
+
+.figure {
+   margin-top: 20px;
+   margin-bottom: 20px;
 }
 
 </style>
@@ -430,7 +405,7 @@ h2.title {
 <p>Text goes here</p>
 <hr />
 <p><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
-<p>Website created and maintained by <a href="https://www.geog.psu.edu/directory/helen-greatrex">Helen Greatrex</a>. Website template by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
+<p>Website created and maintained by <a href="https://www.geog.psu.edu/directory/helen-greatrex">Helen Greatrex</a> Website template by <a href="https://nbrazil.faculty.ucdavis.edu/">Noli Brazil</a></p>
 
 
 
@@ -467,11 +442,6 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("show" === "show");
-});
-</script>
 
 <script>
 $(document).ready(function ()  {
