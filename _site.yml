@@ -19,8 +19,8 @@ navbar:
           href: Objectives.html   
         - text: "Methods"
           href: Methods.html  
-        - text: "Results" 
-          href: Results.html 
+        - text: "Spatial Regression" 
+          href: spatial_regression.html 
     - text: "References"
       href: references.html
 

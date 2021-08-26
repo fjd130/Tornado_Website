@@ -40,11 +40,6 @@ h2.title {
 }
 </style>
 
-</style>
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 \
 

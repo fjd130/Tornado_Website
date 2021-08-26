@@ -36,7 +36,8 @@ h2.title {
 \
 
 
-Tornado Impact
+# Tornado Impact
+
 Because of how quickly they develop and with relatively little warning, tornadoes are extremely dangerous.  Each year tornadoes account for around 80 deaths, 1,500 injuries and about $400 million in damage (Insurance Information Institute, 2021).   As we describe later in the report, the distribution of tornado deaths is not homogeneous and can vary greatly across geographies, demographics, season or time of day that a tornado touches down.
 There are a number of factors influencing tornado related fatalities.  Studies have shown that perceived accuracy of warnings, prior experience with tornadoes and effectiveness of warning communication are a few factors that largely result in seeking protective action during a tornado event (Brotzge & Donner, 2013).
 Diurnal cycles are also important as it has been found that tornadoes at night are twice as deadly as those occurring during daytime hours (Mason et al., 2018).  Accounting for diurnal variability is a vital aspect of the tornado warning process as ensuring the public is aware of tornadoes after dark is a critical factor in reducing fatalities.
