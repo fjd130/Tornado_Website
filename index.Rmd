@@ -46,7 +46,7 @@ h2.title {
 
 This website is a complimentary data source for my Masters of Geographic Information Systems Capstone Project through Penn State's World Campus. 
 
-```{r}
+```{r, echo=FALSE}
 knitr::include_graphics('storm_chase.png')
 ```
 

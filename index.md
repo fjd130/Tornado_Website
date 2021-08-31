@@ -46,11 +46,6 @@ h2.title {
 
 This website is a complimentary data source for my Masters of Geographic Information Systems Capstone Project through Penn State's World Campus. 
 
-
-```r
-knitr::include_graphics('storm_chase.png')
-```
-
 <img src="storm_chase.png" width="359" />
 
 
