@@ -1,5 +1,5 @@
 ---
-title: "Apatial Regression"
+title: "Spatial Regression"
 
 date: <h4 style="font-style:normal">Aug 31, 2021</h4>
 output: 
@@ -47,8 +47,15 @@ h2.title {
 knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message = FALSE)
 ```
 
+# Study set up
+
+READ THIS WITH THE READINGS:
+https://psu-spatial.github.io/Stat462-2021/index.html#S.Tutorial.1A
+and for the spatial, that lab 7 from 364
+
+## Load libraries
+
 ```{r, message=FALSE, warning=FALSE}
-# load library
 # if a library doesn't exist, then to download, go to the packages menu (next to help) and click install
 
 # Upon downloading the .rmd file, I attempted to run this first code chunk and found that many of the libraries weren't installed.
@@ -67,7 +74,13 @@ library(RColorBrewer)
 library("lubridate")
 library(dplyr)
 library(tmap)
+library(olsrr)
+library(skimr)
 ```
+
+## Read in data
+
+This data was accessed from.....
 
 ```{r}
 # dot . means current folder - and you don't need a file extension
@@ -78,6 +91,10 @@ T_data <- st_read(dsn="./1950-2019-torn-initpoint",
                   layer="1950-2019-torn-initpoint")
 
 ```
+
+
+## Initial set up
+
 ```{r}
 # make the date
 # set the values in the date column to the variable "T_data$date"
@@ -88,10 +105,9 @@ T_data$date <- as.Date(T_data$date, format="%Y-%m-%d")
 ```
 
 ```{r}
-# Let's cheat
-head(T_data$time)
 
-# strsplit splits each character time string into a "list" (advent calendar) of the hour, minutes and seconds for each row 
+# strsplit splits each character time string into a "list" (advent calendar) 
+# of the hour, minutes and seconds for each row 
 Fulltimes <- strsplit(T_data$time,":")
 
 
@@ -101,216 +117,125 @@ T_data$hours   <-as.numeric(unlist(lapply(Fulltimes, "[",1)))
 T_data$minutes <-as.numeric(unlist(lapply(Fulltimes, "[",2)))
 T_data$seconds <-as.numeric(unlist(lapply(Fulltimes, "[",3)))
 T_data$DecimalHour <- T_data$hours + (T_data$minutes/60)
-
 ```
-```{r}
-# This is the number of tornados at each magnitude and each hour
-table(T_data$hour,T_data$mag)
-```
-```{r}
 
+```{r}
 # mag < 0 has been set to missing
 T_data$mag[T_data$mag < 0 ] <- NA
 ```
 
-```{r}
-# Bin size control + color palette
-ggplot(T_data, aes(x=DecimalHour, y=mag) ) +
-  geom_bin2d(bins = 70) +
-  scale_fill_continuous(type = "viridis") +
-  theme_bw()
-```
-```{r}
-# Bin size control + color palette
-ggplot(T_data, aes(x=DecimalHour, y=fat) ) +
-  geom_bin2d(bins = 70) +
-  scale_fill_continuous(type = "viridis") +
-  theme_bw()
-```
+## Time of day
 
 ```{r}
-TimeOfDay <- split(T_data,as.factor(T_data$hours))
+# Add in time of day
+T_data$TimeOfDay <- NA
+T_data$TimeOfDay[T_data$hours %in% c(0:5)] <- "Sleep_0_5"
+T_data$TimeOfDay[T_data$hours %in% c(6:11)]    <- "Morning_6_11"
+T_data$TimeOfDay[T_data$hours %in% c(12:17)]    <- "Afternoon_12_17"
+T_data$TimeOfDay[T_data$hours %in% c(18:23)] <- "Evening_18_23"
 
-TimeOfDaySummary <- data.frame(TimeOfDay        = sapply(split(T_data$hours,as.factor(T_data$hours)),"[",1),
-                               NumberOfTornados = sapply(TimeOfDay,nrow),
-                               TotalFatalities  = sapply(split(T_data$fat,as.factor(T_data$hours)),sum,na.rm=TRUE),
-                               AvFatalities     = sapply(split(T_data$fat,as.factor(T_data$hours)),mean,na.rm=TRUE),
-                               AvMag            = sapply(split(T_data$mag,as.factor(T_data$hours)),mean,na.rm=TRUE))
+tmap_mode("plot") # view
+#qtm(T_data,dots.col="TimeOfDay")
 
-## In words, make a wish list of what you would like to see by hour
-
-TimeOfDaySummary
-```
-```{r}
-#split by year
-ByYear <- split(T_data,as.factor(T_data$yr))
-
-ByYearSummary <- data.frame(Year        = sapply(split(T_data$yr,as.factor(T_data$yr)),"[",1),
-                               NumberOfTornados = sapply(ByYear,nrow),
-                               TotalFatalities  = sapply(split(T_data$fat,as.factor(T_data$yr)),sum,na.rm=TRUE),
-                               AvFatalities     = sapply(split(T_data$fat,as.factor(T_data$yr)),mean,na.rm=TRUE),
-                               AvMag            = sapply(split(T_data$mag,as.factor(T_data$yr)),mean,na.rm=TRUE))
-
-## In words, make a wish list of what you would like to see by hour
-
-ByYearSummary
 ```
 
-```{r}
-plot(ByYearSummary$Year,
-     ByYearSummary$TotalFatalities,type="h")
-```
 ```{r}
 # The ~ means "is a function of" e.g. y variable goes first
 
-plot(TimeOfDaySummary$AvFatalities ~  TimeOfDaySummary$TimeOfDay,
-     ylab="Average number of fatalities in that hour slot",
-     xlab="Time of day",
-     type="o")
+# wrong plot command for categorical data
+#plot(T_data$fat, T_data$TimeOfDay,
+#     ylab="Average number of fatalities in that hour slot",
+#     xlab="Time of day",
+#     type="p",pch=16,cex=.1,col=rgb(0,0,0,.5))
 ```
+
+
 ```{r}
-#  YOU CHOOSE THE MAGNITUDE HERE
-
-magnitude <- 1
-
-# filter that mag
-T_data_Mag <- filter(T_data,mag==magnitude)
-
-# Split the data
-TimeOfDay_Mag <- split(T_data_Mag,as.factor(T_data_Mag$hours))
-
-# split by time of day as a summary table
-TimeOfDaySummary_Mag <- data.frame(TimeOfDay   = sapply(split(T_data_Mag$hours,as.factor(T_data_Mag$hours)),"[",1),
-                               NumberOfTornados = sapply(TimeOfDay_Mag,nrow),
-                               TotalFatalities  = sapply(split(T_data_Mag$fat,as.factor(T_data_Mag$hours)),sum,na.rm=TRUE),
-                               AvFatalities     = sapply(split(T_data_Mag$fat,as.factor(T_data_Mag$hours)),mean,na.rm=TRUE),
-                               AvMag            = sapply(split(T_data_Mag$mag,as.factor(T_data_Mag$hours)),mean,na.rm=TRUE))
-
-
-plot(TimeOfDaySummary_Mag$TotalFatalities ~  TimeOfDaySummary_Mag$TimeOfDay,
-     ylab=paste("Total fatalities at Mag",magnitude),type="o")
-
-plot(TimeOfDaySummary_Mag$AvFatalities ~  TimeOfDaySummary_Mag$TimeOfDay,
-     ylab=paste("Average fatalities at Mag",magnitude),type="o")
-
-```
-```{r}
-#  YOU CHOOSE THE MAGNITUDE HERE
-
-magnitude <- 2
-
-# filter that mag
-T_data_Mag <- filter(T_data,mag==magnitude)
-
-# Split the data
-TimeOfDay_Mag <- split(T_data_Mag,as.factor(T_data_Mag$hours))
-
-# split by time of day as a summary table
-TimeOfDaySummary_Mag <- data.frame(TimeOfDay   = sapply(split(T_data_Mag$hours,as.factor(T_data_Mag$hours)),"[",1),
-                               NumberOfTornados = sapply(TimeOfDay_Mag,nrow),
-                               TotalFatalities  = sapply(split(T_data_Mag$fat,as.factor(T_data_Mag$hours)),sum,na.rm=TRUE),
-                               AvFatalities     = sapply(split(T_data_Mag$fat,as.factor(T_data_Mag$hours)),mean,na.rm=TRUE),
-                               AvMag            = sapply(split(T_data_Mag$mag,as.factor(T_data_Mag$hours)),mean,na.rm=TRUE))
-
-
-plot(TimeOfDaySummary_Mag$TotalFatalities ~  TimeOfDaySummary_Mag$TimeOfDay,
-     ylab=paste("Total fatalities at Mag",magnitude),type="o")
-
-plot(TimeOfDaySummary_Mag$AvFatalities ~  TimeOfDaySummary_Mag$TimeOfDay,
-     ylab=paste("Average fatalities at Mag",magnitude),type="o")
-
+#skim(T_data)
 ```
 
 ```{r}
-#  YOU CHOOSE THE MAGNITUDE HERE
-
-magnitude <- 3
-
-# filter that mag
-T_data_Mag <- filter(T_data,mag==magnitude)
-
-# Split the data
-TimeOfDay_Mag <- split(T_data_Mag,as.factor(T_data_Mag$hours))
-
-# split by time of day as a summary table
-TimeOfDaySummary_Mag <- data.frame(TimeOfDay   = sapply(split(T_data_Mag$hours,as.factor(T_data_Mag$hours)),"[",1),
-                               NumberOfTornados = sapply(TimeOfDay_Mag,nrow),
-                               TotalFatalities  = sapply(split(T_data_Mag$fat,as.factor(T_data_Mag$hours)),sum,na.rm=TRUE),
-                               AvFatalities     = sapply(split(T_data_Mag$fat,as.factor(T_data_Mag$hours)),mean,na.rm=TRUE),
-                               AvMag            = sapply(split(T_data_Mag$mag,as.factor(T_data_Mag$hours)),mean,na.rm=TRUE))
+###  two equals means "is equal to??"
+## != not equal
+## < > MAKE TEST DATA THAT IS SPATIAL
+ Catdata <- T_data[T_data$mag == 4,]
+Catdata <- Catdata[Catdata$loss < 1000000,]
+Catdata.sf <- st_as_sf(Catdata,coords=c("elon","elat"),crs=4236)
+```
 
 
-plot(TimeOfDaySummary_Mag$TotalFatalities ~  TimeOfDaySummary_Mag$TimeOfDay,
-     ylab=paste("Total fatalities at Mag",magnitude),type="o")
+```{r}
+model1 <- lm(loss ~ slat, data=Catdata.sf)
+ols_regress(model1)
+plot(loss ~ slat, data=Catdata.sf)
+```
 
-plot(TimeOfDaySummary_Mag$AvFatalities ~  TimeOfDaySummary_Mag$TimeOfDay,
-     ylab=paste("Average fatalities at Mag",magnitude),type="o")
+
+
+```{r}
+model2 <- lm(loss ~ slat+TimeOfDay+fat, data=Catdata.sf)
+ols_regress(model2)
+```
+
+# comparing two models
+
+```{r}
+# to compare
+anova(model1,model2)
+```
+
+
+```{r}
+# lower is better
+AIC(model1,model2)
+```
+# seeing if our favourite model meets 
+
+THE 4 ASSUMPTIONS - GO FIND THESE AND WRITE THEM DOWN
+(LINE)
+https://psu-spatial.github.io/Stat462-2021/index.html#S.Tutorial.7C
+
+
+```{r}
+ols_plot_resid_fit(model1)
+
+```
+
+
+```{r}
+ols_plot_resid_stud(model1)
 
 ```
 
 ```{r}
-#  YOU CHOOSE THE MAGNITUDE HERE
-
-magnitude <- 4
-
-# filter that mag
-T_data_Mag <- filter(T_data,mag==magnitude)
-
-# Split the data
-TimeOfDay_Mag <- split(T_data_Mag,as.factor(T_data_Mag$hours))
-
-# split by time of day as a summary table
-TimeOfDaySummary_Mag <- data.frame(TimeOfDay   = sapply(split(T_data_Mag$hours,as.factor(T_data_Mag$hours)),"[",1),
-                               NumberOfTornados = sapply(TimeOfDay_Mag,nrow),
-                               TotalFatalities  = sapply(split(T_data_Mag$fat,as.factor(T_data_Mag$hours)),sum,na.rm=TRUE),
-                               AvFatalities     = sapply(split(T_data_Mag$fat,as.factor(T_data_Mag$hours)),mean,na.rm=TRUE),
-                               AvMag            = sapply(split(T_data_Mag$mag,as.factor(T_data_Mag$hours)),mean,na.rm=TRUE))
-
-
-plot(TimeOfDaySummary_Mag$TotalFatalities ~  TimeOfDaySummary_Mag$TimeOfDay,
-     ylab=paste("Total fatalities at Mag",magnitude),type="o")
-
-plot(TimeOfDaySummary_Mag$AvFatalities ~  TimeOfDaySummary_Mag$TimeOfDay,
-     ylab=paste("Average fatalities at Mag",magnitude),type="o")
+ols_plot_resid_qq(model1)
 
 ```
 
 ```{r}
-#  YOU CHOOSE THE MAGNITUDE HERE
-
-magnitude <- 5
-
-# filter that mag
-T_data_Mag <- filter(T_data,mag==magnitude)
-
-# Split the data
-TimeOfDay_Mag <- split(T_data_Mag,as.factor(T_data_Mag$hours))
-
-# split by time of day as a summary table
-TimeOfDaySummary_Mag <- data.frame(TimeOfDay   = sapply(split(T_data_Mag$hours,as.factor(T_data_Mag$hours)),"[",1),
-                               NumberOfTornados = sapply(TimeOfDay_Mag,nrow),
-                               TotalFatalities  = sapply(split(T_data_Mag$fat,as.factor(T_data_Mag$hours)),sum,na.rm=TRUE),
-                               AvFatalities     = sapply(split(T_data_Mag$fat,as.factor(T_data_Mag$hours)),mean,na.rm=TRUE),
-                               AvMag            = sapply(split(T_data_Mag$mag,as.factor(T_data_Mag$hours)),mean,na.rm=TRUE))
-
-
-plot(TimeOfDaySummary_Mag$TotalFatalities ~  TimeOfDaySummary_Mag$TimeOfDay,
-     ylab=paste("Total fatalities at Mag",magnitude),type="o")
-
-plot(TimeOfDaySummary_Mag$AvFatalities ~  TimeOfDaySummary_Mag$TimeOfDay,
-     ylab=paste("Average fatalities at Mag",magnitude),type="o")
+ols_plot_resid_hist(model1)
 
 ```
 
+```{r}
+ols_test_normality(model1)
 
+```
 
-Your text goes here
+```{r}
+ols_plot_cooksd_bar(model1)
 
+```
 
+```{r}
+ols_plot_resid_lev(model1)
 
-***
+```
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+# Spatial residuals
 
+```{r}
+Catdata.sf$model1.Residuals <- residuals(model1)
 
-Website created and maintained by [Helen Greatrex](https://www.geog.psu.edu/directory/helen-greatrex). Website template by [Noli Brazil](https://nbrazil.faculty.ucdavis.edu/)
+```
+
