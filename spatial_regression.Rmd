@@ -61,6 +61,9 @@ and for the spatial, that lab 7 from 364
 # Upon downloading the .rmd file, I attempted to run this first code chunk and found that many of the libraries weren't installed.
 #I needed to install each library before downloading it via this code
 
+## pacman library is cool check it out
+
+
 rm(list=ls())
 library(sp)
 library(sf)
